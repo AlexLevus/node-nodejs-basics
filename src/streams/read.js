@@ -1,5 +1,16 @@
+import { createReadStream } from "fs";
+
 const read = async () => {
-    // Write your code here 
+  const readStream = createReadStream("files/fileToRead.txt");
+
+  let rawData = "";
+  readStream.on("data", (chunk) => {
+    rawData += chunk;
+  });
+
+  readStream.on("end", () => {
+    process.stdout.write(rawData);
+  });
 };
 
 await read();
