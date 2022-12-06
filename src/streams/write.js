@@ -1,7 +1,8 @@
 import { createWriteStream } from "fs";
 
 const write = async () => {
-  const writeStream = createWriteStream("files/fileToWrite.txt");
+  const filePath = new URL("files/fileToWrite.txt", import.meta.url);
+  const writeStream = createWriteStream(filePath);
 
   process.stdin.on("data", (chunk) => {
     writeStream.write(chunk);

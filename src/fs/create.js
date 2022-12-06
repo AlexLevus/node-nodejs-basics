@@ -2,7 +2,8 @@ import { writeFile } from "node:fs/promises";
 
 const create = async () => {
   try {
-    await writeFile("files/fresh.txt", "I am fresh and young", { flag: "wx" });
+    const filePath = new URL("files/fresh.txt", import.meta.url);
+    await writeFile(filePath, "I am fresh and young", { flag: "wx" });
   } catch (e) {
     throw new Error("FS operation failed");
   }

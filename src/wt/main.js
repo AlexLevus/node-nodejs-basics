@@ -2,11 +2,13 @@ import { Worker } from "node:worker_threads";
 import os from "node:os";
 
 const performCalculations = async () => {
-  const workers = [];
+    const filePath = new URL("worker.js", import.meta.url);
+
+    const workers = [];
   for (let i = 0; i < os.cpus().length; i++) {
     workers.push(
       new Promise((resolve, reject) => {
-        const worker = new Worker("./worker.js", { workerData: 10 + i });
+        const worker = new Worker(filePath, { workerData: 10 + i });
         worker.on("message", resolve);
         worker.on("error", reject);
       })
